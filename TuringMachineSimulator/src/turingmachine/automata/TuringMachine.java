@@ -124,6 +124,14 @@ public class TuringMachine {
 		}
 		
 		/**
+		 * adds a state transition
+		 * @param t
+		 */
+		public void addTransition(StateTransition t) {
+			transitions.add(t);
+		}
+		
+		/**
 		 * returns true if accept
 		 * @return true if accept
 		 */
