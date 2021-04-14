@@ -10,7 +10,7 @@ import java.util.Iterator;
 public class PositionalList<E> implements Iterable<E>{
 
 	private PositionalNode<E> head;
-	private PositionalNode<E> tail;
+	public PositionalNode<E> tail;
 	private int size;
 	
 	/**

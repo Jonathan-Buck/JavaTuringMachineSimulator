@@ -1,0 +1,5 @@
+# comment
+init q0
+accept q1
+
+q0 q1 0 1 R
