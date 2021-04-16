@@ -1,7 +1,6 @@
 package turingmachine.automata;
 
 import java.util.HashMap;
-import java.util.List;
 
 import turingmachine.automata.parts.Direction;
 import turingmachine.automata.parts.MachineState;
@@ -39,22 +38,13 @@ public class TuringMachine {
 		Boolean stop = false;
 		while(!stop) {
 			stop = true;
-			//System.out.println(stateToString(currentState));
-			//System.out.println(currentState.getName() + " " + currentState.getTransitions().size());
 			for (StateTransition t : currentState.getTransitions()) {
 				Boolean endFor = false;
-				//System.out.println(t.getIn() + " " + t.getOut() + " " + t.getNextState());
-				//System.out.println(currentState.getName() + " " + currentChar.getElement() + " " + t.getIn() + " " + (t.getIn() == currentChar.getElement()));
 				
 				if (t.getIn() == currentChar.getElement()) {
 					endFor = true;
-					//System.out.print(currentState.getName());
-					//System.out.print(" " + t.getIn() + " " + currentChar.getElement());
-					//System.out.println(" " + t.getNextState());
 					stop = false;
 					currentChar.setElement(t.getOut());
-					//System.out.println(currentState.getName());
-					//System.out.println(t.getNextState());
 					currentState = states.get(t.getNextState());
 					if (t.getDirection() == Direction.LEFT) {
 						currentChar = currentChar.getPrev();
@@ -71,7 +61,6 @@ public class TuringMachine {
 				}
 			}
 		}
-		//System.out.println(currentState.getName());
 		return currentState.isAccept();
 	}
 
@@ -103,11 +92,4 @@ public class TuringMachine {
 		this.states = states;
 	}
 	
-	private String stateToString(MachineState state) {
-		String out = state.getName();
-		for (StateTransition t : state.getTransitions()) {
-			out = out + " " + t.getNextState() + " " + t.getIn() + " "+ t.getOut() + " | ";
-		}
-		return  out;
-	}
 }

@@ -89,5 +89,6 @@ public class TuringMachineUI {
 					}
 				}
 			}
+		in.close();	
 	}
 }

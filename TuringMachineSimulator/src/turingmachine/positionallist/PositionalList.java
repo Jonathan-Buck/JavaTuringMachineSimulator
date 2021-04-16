@@ -9,7 +9,6 @@ public class PositionalList {
 
 	private PositionalNode head;
 	public PositionalNode tail;
-	private int size;
 	
 	/**
 	 * positional list constructor
