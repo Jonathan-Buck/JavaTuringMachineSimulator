@@ -1,0 +1,10 @@
+# accepts an even number of 0's
+
+init q0
+accept qAccept
+
+q0 q1 0 0 R
+q1 q0 0 0 R
+q0 q0 1 1 R
+q1 q1 1 1 R
+q0 qAccept _ _ R

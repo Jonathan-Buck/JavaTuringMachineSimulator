@@ -26,9 +26,8 @@ public class TuringMachineUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		while (!stop) {
+		
 			String startState = null;
-			HashMap<String, String> acceptStates = new HashMap<String, String>();
 			HashMap<String, MachineState> states = new HashMap<String, MachineState>();
 			while(fileScanner.hasNextLine()) {
 				lineCount++;
@@ -67,26 +66,28 @@ public class TuringMachineUI {
 								states.put(state, tempState);
 							}
 							states.get(state).addTransition(transition);
+							System.out.println(state + " " + transition.getNextState());
 						}
 					}
 				}
 			}
 			TuringMachine turingMachine = new TuringMachine(states.get(startState), states);
-			System.out.print("enter a string or q for quit: ");
-			input = in.next();
-			if (input.equals("q")) {
-				stop = true;
-			}
-			else {
-				Boolean accept = turingMachine.run(input);
-				String tape = turingMachine.getTapeString();
-				if (accept) {
-					System.out.println("accept " + tape);
+			while (!stop) {
+				System.out.print("enter a string or q for quit: ");
+				input = in.next();
+				if (input.equals("q")) {
+					stop = true;
 				}
 				else {
-					System.out.println("reject " + tape);
+					Boolean accept = turingMachine.run(input);
+					String tape = turingMachine.getTapeString();
+					if (accept) {
+						System.out.println("accept " + tape);
+					}
+					else {
+						System.out.println("reject " + tape);
+					}
 				}
 			}
-		}
 	}
 }

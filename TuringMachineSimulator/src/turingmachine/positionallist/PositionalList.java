@@ -1,33 +1,31 @@
 package turingmachine.positionallist;
 
-import java.util.Iterator;
-
 /**
  * a custom positional doubly linked list implementation for the turingmachine tape
  * @author Jonathan Buck
  *
  */
-public class PositionalList<E> implements Iterable<E>{
+public class PositionalList {
 
-	private PositionalNode<E> head;
-	public PositionalNode<E> tail;
+	private PositionalNode head;
+	public PositionalNode tail;
 	private int size;
 	
 	/**
 	 * positional list constructor
 	 */
 	public PositionalList() {
-		head = new PositionalNode<E>(null);
-		tail = addAfter(head, null);
+		head = new PositionalNode('\0');
+		tail = addAfter(head, '\0');
 	}
 	
 	/**
 	 * constructs list from an array of elements
 	 * @param in input array
 	 */
-	public PositionalList(E[] in) {
+	public PositionalList(char[] in) {
 		this();
-		PositionalNode<E> current = head;
+		PositionalNode current = head;
 		for (int i = 0; i < in.length; i++) {
 			addAfter(current, in[i]);
 			current = next(current);
@@ -40,8 +38,8 @@ public class PositionalList<E> implements Iterable<E>{
 	 * @param element element added
 	 * @return node added
 	 */
-	public PositionalNode<E> addAfter(PositionalNode<E> p, E element) {
-		PositionalNode<E> temp = new PositionalNode<E>(element);
+	public PositionalNode addAfter(PositionalNode p, char element) {
+		PositionalNode temp = new PositionalNode(element);
 		temp.setNext(p.getNext());
 		p.getNext().setPrev(temp);
 		temp.setPrev(p);
@@ -55,8 +53,8 @@ public class PositionalList<E> implements Iterable<E>{
 	 * @param element element added
 	 * @return node added
 	 */
-	public PositionalNode<E> addBefore(PositionalNode<E> p, E element) {
-		PositionalNode<E> temp = new PositionalNode<E>(element);
+	public PositionalNode addBefore(PositionalNode p, char element) {
+		PositionalNode temp = new PositionalNode(element);
 		temp.setPrev(p.getPrev());
 		p.getPrev().setNext(temp);
 		temp.setNext(p);
@@ -69,7 +67,7 @@ public class PositionalList<E> implements Iterable<E>{
 	 * @param p current position
 	 * @param element element set to
 	 */
-	public void setCurrent(PositionalNode<E> p, E element) {
+	public void setCurrent(PositionalNode p, char element) {
 		p.setElement(element);
 	}
 	
@@ -77,7 +75,7 @@ public class PositionalList<E> implements Iterable<E>{
 	 * gets element from current node
 	 * @param p current position
 	 */
-	public E setCurrent(PositionalNode<E> p) {
+	public Character setCurrent(PositionalNode p) {
 		return p.getElement();
 	}
 	
@@ -86,7 +84,7 @@ public class PositionalList<E> implements Iterable<E>{
 	 * @param p current position
 	 * @return next node
 	 */
-	public PositionalNode<E> next(PositionalNode<E> p) {
+	public PositionalNode next(PositionalNode p) {
 		return p.getNext();
 	}
 	
@@ -95,7 +93,7 @@ public class PositionalList<E> implements Iterable<E>{
 	 * @param p current position
 	 * @return previous node
 	 */
-	public PositionalNode<E> prev(PositionalNode<E> p) {
+	public PositionalNode prev(PositionalNode p) {
 		return p.getPrev();
 	}
 	
@@ -103,21 +101,21 @@ public class PositionalList<E> implements Iterable<E>{
 	 * returns the front of the list
 	 * @return front of the list
 	 */
-	public PositionalNode<E> front() {
+	public PositionalNode front() {
 		return head;
 	}
 	/**
 	 * node in a positional list
 	 */
-	public class PositionalNode<E> {
-		private E element;
-		private PositionalNode<E> prev;
-		private PositionalNode<E> next;
+	public class PositionalNode {
+		private char element;
+		private PositionalNode prev;
+		private PositionalNode next;
 		
 		/**
 		 * positional node constructor
 		 */
-		public PositionalNode(E element) {
+		public PositionalNode(char element) {
 			setElement(element);
 			setPrev(null);
 			setNext(null);
@@ -126,16 +124,19 @@ public class PositionalList<E> implements Iterable<E>{
 		/**
 		 * @return the element
 		 */
-		public E getElement() {
+		public char getElement() {
+			if(element == '\0') {
+				element =  '_';
+			}
 			return element;
 		}
 
 		/**
 		 * @return the prev
 		 */
-		public PositionalNode<E> getPrev() {
+		public PositionalNode getPrev() {
 			if (prev == null) {
-				prev = new PositionalNode<E>(null);
+				prev = new PositionalNode('_');
 				prev.setNext(this);
 			}
 			return prev;
@@ -144,9 +145,9 @@ public class PositionalList<E> implements Iterable<E>{
 		/**
 		 * @return the next
 		 */
-		public PositionalNode<E> getNext() {
+		public PositionalNode getNext() {
 			if (next == null) {
-				next = new PositionalNode<E>(null);
+				next = new PositionalNode('_');
 				next.setPrev(this);
 			}
 			return next;
@@ -155,33 +156,25 @@ public class PositionalList<E> implements Iterable<E>{
 		/**
 		 * @param element the element to set
 		 */
-		public void setElement(E element) {
+		public void setElement(Character element) {
 			this.element = element;
 		}
 
 		/**
 		 * @param prev the prev to set
 		 */
-		public void setPrev(PositionalNode<E> prev) {
+		public void setPrev(PositionalNode prev) {
 			this.prev = prev;
 		}
 
 		/**
 		 * @param next the next to set
 		 */
-		public void setNext(PositionalNode<E> next) {
+		public void setNext(PositionalNode next) {
 			this.next = next;
 		}
 		
 		
-	}
-	/**
-	 * allows for iteration over the whole positional list
-	 */
-	@Override
-	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

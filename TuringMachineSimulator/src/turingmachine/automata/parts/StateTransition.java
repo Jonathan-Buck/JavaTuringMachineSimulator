@@ -10,8 +10,8 @@ package turingmachine.automata.parts;
  *
  */
 public class StateTransition {
-	private Character in;
-	private Character out;
+	private char in;
+	private char out;
 	private String nextState;
 	private Direction direction;
 	
@@ -22,7 +22,7 @@ public class StateTransition {
 	 * @param next next state
 	 * @param direction direction to move on tape
 	 */
-	public StateTransition(Character in, Character out, String nextState, Direction direction) {
+	public StateTransition(char in, char out, String nextState, Direction direction) {
 		this.in = in;
 		this.out = out;
 		this.nextState = nextState;
@@ -32,14 +32,14 @@ public class StateTransition {
 	/**
 	 * @return the in
 	 */
-	public Character getIn() {
+	public char getIn() {
 		return in;
 	}
 
 	/**
 	 * @return the out
 	 */
-	public Character getOut() {
+	public char getOut() {
 		return out;
 	}
 
