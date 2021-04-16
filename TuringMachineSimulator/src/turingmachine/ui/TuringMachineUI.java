@@ -66,7 +66,6 @@ public class TuringMachineUI {
 								states.put(state, tempState);
 							}
 							states.get(state).addTransition(transition);
-							System.out.println(state + " " + transition.getNextState());
 						}
 					}
 				}
